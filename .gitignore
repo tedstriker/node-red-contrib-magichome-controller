@@ -1,5 +1,6 @@
 # exclude external node modules
 node_modules/
 
-# exclude workspace files
+# exclude visual studio code files
+.vscode/
 .code-workspace
