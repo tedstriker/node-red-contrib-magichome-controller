@@ -4,6 +4,8 @@
 
 Use this node contribution to control your [Magic Home LED Controller](https://www.aliexpress.com/item/LED-Strip-light-WiFi-Bluetooth-RGB-RGBW-Controller-DC-5V-12V-24V-Android-IOS-APP-Amazon/32883892255.html) with NodeRED.
 
+Works with MagicHome default firmware.
+
 ## Getting started
 tbd
 
@@ -12,12 +14,14 @@ tbd
 
 ## Properties
 ### Input commands
+tbd
 
 ### Output status
+tbd
 
 ## Example
+tbd
 
-Works with MagicHome (ARILUX) default firmware.
 
 ## Thanks go to
 - jangxx (https://github.com/jangxx/node-magichome) his magic-home npm package takes care of the heavy lifting inside this contribution.
