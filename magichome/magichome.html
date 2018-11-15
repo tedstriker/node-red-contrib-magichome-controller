@@ -1,0 +1,103 @@
+<script type="text/javascript">
+    RED.nodes.registerType('MagicHome', {
+        category: 'home automation',
+        color: '#1f9cda',
+        defaults: {
+            name: {
+                value: ""
+            },
+            server: {
+                value: "",
+                type: "MagicHome-config"
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "light.png",
+        label: function () {
+            return this.name || "MagicHome";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="MagicHome">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-server">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="MagicHome">
+    <p>Control and MagicHome LED Controller</p>
+
+    <h3>Inputs</h3>
+    <p>Changes the light state based on the passed in <code>msg.payload</code> values of:</p>
+    <dl class="message-properties">
+        <dt>power<span class="property-type">boolean</span></dt>
+        <dd>True or 'on' to turn on the LEDs, false or 'off' to turn them off.</dd>
+
+        <dt>brightness<span class="property-type">0..255</span></dt>
+        <dd>Set the brightness of the LEDs, note LEDs must be on for this to have an effect. Not implemented yet.</dd>
+
+        <dt>color<span class="property-type">{red:0..255, green: 0..255, blue:0..255}</span></dt>
+        <dd>Set the color of the LED. Only in effect if LEDs are switched on.</dd>
+        
+        <dt>white<span class="property-type">boolean</span></dt>
+        <dd>Flash the LED twice.</dd>
+    
+
+        <dt>query<span class="property-type">any</dt>
+        <dd>Just add a property named query to msg.payload. Hint: Also, after each change a query is triggered automatically.
+    </dl>
+
+    <h3>Example</h3>
+    <p>Turn light on and set to 50% brightness: <code>msg.payload = { "on": true, "brightness": 50 }</code></p>
+    
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('MagicHome-config', {
+        category: 'config',
+        defaults: {
+            name: {
+                value: ""
+            },
+            host: {
+                value: "",
+                required: true
+            },
+            interval: {
+                value: 10,
+                required: true,
+                validate: RED.validators.number()
+            }
+        },
+        label: function () {
+            if (this.name !== "") {
+                return this.name;
+            } else {
+                return this.host + ":" + this.port;
+            }
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="MagicHome-config">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="icon-bookmark"></i> Host/IP</label>
+        <input type="text" id="node-config-input-host" placeholder="0.0.0.0">
+    </div>
+    <!-- <div class="form-row">
+        <label for="node-config-input-interval"><i class="icon-bookmark"></i> Query state interval</label>
+        <input type="text" id="node-config-input-interval">
+    </div> -->
+
+</script>
