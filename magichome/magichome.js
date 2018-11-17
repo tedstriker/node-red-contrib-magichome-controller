@@ -254,7 +254,7 @@ module.exports = function (RED) {
 
         function evaluateQueryResult(err, data) {
             // on/off state
-            if (err !== undefined) {
+            if (err !== null) {
                 node.error('lamp \'' + lampName + '\' not reachable.');
                 return;
             }
@@ -268,7 +268,7 @@ module.exports = function (RED) {
         }
 
         function sendStateMsg() {
-            var msg = internalState.status;
+            var msg = {payload:internalState.status};
 
             node.send(msg);
         }
