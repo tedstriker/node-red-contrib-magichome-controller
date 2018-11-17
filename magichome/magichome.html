@@ -37,7 +37,7 @@
     <h3>Inputs</h3>
     <p>Changes the light state based on the passed in <code>msg.payload</code> values of:</p>
     <dl class="message-properties">
-        <dt>power<span class="property-type">boolean</span></dt>
+        <dt>power<span class="property-type">boolean|string</span></dt>
         <dd>True or 'on' to turn on the LEDs, false or 'off' to turn them off.</dd>
 
         <dt>brightness<span class="property-type">0..255</span></dt>
@@ -47,11 +47,10 @@
         <dd>Set the color of the LED. Only in effect if LEDs are switched on.</dd>
         
         <dt>white<span class="property-type">boolean</span></dt>
-        <dd>Flash the LED twice.</dd>
+        <dd>Set brightness of white LEDs.</dd>
     
-
         <dt>query<span class="property-type">any</dt>
-        <dd>Just add a property named query to msg.payload. Hint: Also, after each change a query is triggered automatically.
+        <dd>Just add a property named query to msg.payload. Hint: After each change a query is triggered automatically.
     </dl>
 
     <h3>Example</h3>
