@@ -255,7 +255,7 @@ module.exports = function (RED) {
         function evaluateQueryResult(err, data) {
             // on/off state
             if (err !== undefined) {
-                node.error('lamp \'' + lampName + '\' not reachable ');
+                node.error('lamp \'' + lampName + '\' not reachable.');
                 return;
             }
 
