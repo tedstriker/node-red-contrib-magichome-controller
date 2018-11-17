@@ -130,6 +130,7 @@ module.exports = function (RED) {
             }
 
             set status(objLampState) {
+
                 if (objLampState.power == true || objLampState.power == this.C_ON) {
                     this._power = this.C_ON;
                 } else if (objLampState.power == false || objLampState.power == this.C_OFF) {
@@ -179,11 +180,13 @@ module.exports = function (RED) {
 
         // read config node
         let host;
+        let lampName;
 
         this.server = RED.nodes.getNode(config.server);
 
         if (this.server) {
             host = this.server.host;
+            lampName = this.server.name;
         }
 
         let internalState = new LampState();
@@ -193,11 +196,11 @@ module.exports = function (RED) {
 
         function setState(value) {
 
-            if (value === internalState.C_ON) {
+            if (value === internalState.C_ON || value === true) {
                 light.turnOn(function () {
                     queryLampState();
                 });
-            } else if (value === internalState.C_OFF) {
+            } else if (value === internalState.C_OFF || value === false) {
                 light.turnOff(function () {
                     queryLampState();
                 });
@@ -246,11 +249,16 @@ module.exports = function (RED) {
         }
 
         function queryLampState() {
-            light.queryState(setQueryResult);
+            light.queryState(evaluateQueryResult);
         }
 
-        function setQueryResult(err, data) {
+        function evaluateQueryResult(err, data) {
             // on/off state
+            if (err !== undefined) {
+                node.error('lamp \'' + lampName + '\' not reachable ');
+                return;
+            }
+
             let queryData = {
                 power: data.on,
                 color: data.color,
@@ -288,7 +296,6 @@ module.exports = function (RED) {
             if (msg.payload.brightness !== undefined) {
                 setBrightness(msg.payload.brightness);
             }
-
 
         });
 
