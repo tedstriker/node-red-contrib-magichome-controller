@@ -2,24 +2,72 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/tedstriker/node-red-contrib-magic-home/graphs/commit-activity)
 [![GitHub license](https://img.shields.io/github/license/tedstriker/node-red-contrib-magic-home.svg)](https://github.com/tedstriker/node-red-contrib-magic-home/blob/master/LICENSE)
 
+# Description
 Use this node contribution to control your [Magic Home LED Controller](https://www.aliexpress.com/item/LED-Strip-light-WiFi-Bluetooth-RGB-RGBW-Controller-DC-5V-12V-24V-Android-IOS-APP-Amazon/32883892255.html) with NodeRED.
 
 Works with MagicHome default firmware.
 
-## Getting started
-tbd
+# Installing
+Within NodeRED you can sleect 'Manage palette' from the burger menu and install ```node-red-contrib-magic-home```
 
-## Installing
-tbd
+Your 2nd option is to install it via npm to the NodeRED user directory by typing
+```npm install node-red-contrib-magic-home``` on your command line.
 
-## Properties
-### Input commands
-tbd
+# Getting started
 
-### Output status
-tbd
 
-## Example
+
+# Properties
+## Input commands
+All properties have to be supplied within ```msg.payload``` property as the following properties:
+### ```power``` (_boolean_|_string_)
+set ```msg.payload.power```to ```true``` or ```"on"``` to turn the light on.<br>
+set it to ```false``` or ```"off"``` to turn it off.
+
+### ```brightness``` (_integer: 0..255_)
+Hint: It doesn't work at the moment and can't be set. Currently it is reflecting the maximum value all colors including white.
+e.g. if color is
+- red: 120
+- green: 34
+- blue: 200
+- white: 178
+
+the brightness is 200.
+
+### ```white``` (_integer: 0..255_)
+Set the brightness of the white LED with this property. If your LED controller doesn't support white, this property can just be ignored.
+The value can only be changed if the light has been turned on.
+
+### ```color``` (_object_)
+contains of three propoerties red, green and blue. Each can hold a value between 0 and 255.
+Omitting properties is possible.
+The color can only be changed, if the light has been turned on.
+
+```JavaScript 
+{ "red":0..255, "green": 0..255, "blue":0..255 }
+```
+
+## Output status
+Below is an example what the output status object looks like.
+The values of brightness, color and white are kept even when the light is turned off.
+
+```JSON
+{
+    "power":"off",
+    "brightness":255,
+    "color":
+    {
+        "red":0,
+        "green":111,
+        "blue":250
+    },
+    "white":255
+}
+```
+
+# Example
+Import this example flow into NodeRED to try it out with controls on a dashboard.
+Please put your lamps IP address (or host name) in the configuration node.
 
 
 ``` JSON
@@ -38,4 +86,4 @@ See [project board](https://github.com/tedstriker/node-red-contrib-magic-home/pr
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md] file for details
+This project is licensed under the Apache v2.0 License - see the [LICENSE.md] file for details
