@@ -39,17 +39,15 @@ Set the brightness of the white LED with this property. If your LED controller d
 The value can only be changed if the light has been turned on.
 
 ### ```color``` (_object_)
-contains of three propoerties red, green and blue. Each can hold a value between 0 and 255.
+contains of three propoerties red, green and blue. Each can hold a value between 0 and 255. The color can only be changed, if the light has been turned on.
 Omitting properties is possible.
-The color can only be changed, if the light has been turned on.
 
 ```JavaScript 
 { "red":0..255, "green": 0..255, "blue":0..255 }
 ```
 
 ## Output status
-Below is an example what the output status object looks like.
-The values of brightness, color and white are kept even when the light is turned off.
+Below is an example what the output status object looks like. The values of brightness, color and white are kept even when the light is turned off.
 
 ```JSON
 {
@@ -67,7 +65,9 @@ The values of brightness, color and white are kept even when the light is turned
 
 # Example
 Import this example flow into NodeRED to try it out with controls on a dashboard.
-Please put your lamps IP address (or host name) in the configuration node.
+The dashboads URL is: ```http[s]://[YOUR NODERED IP]:[1880|CUSTOM PORT]/[NODE ROOT PATH/]ui```
+
+Reminder: Please set your lamps IP address (or host name) in the configuration node.
 
 
 ``` JSON
@@ -81,9 +81,6 @@ Please put your lamps IP address (or host name) in the configuration node.
 
 ## ToDo
 See [project board](https://github.com/tedstriker/node-red-contrib-magic-home/projects/1)
-
-## Versioning
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
 
 ## License
 This project is licensed under the Apache v2.0 License - see the [LICENSE.md] file for details
