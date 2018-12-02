@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-magic-home",
+  "name": "node-red-contrib-magichome-controller",
   "version": "0.1.2",
   "description": "NodeRED node for MagicHome RGB LED controller",
   "keywords": [
@@ -21,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tedstriker/node-red-contrib-magic-home.git"
+    "url": "git+https://github.com/tedstriker/node-red-contrib-magichome-controller.git"
   },
   "bugs": {
-    "url": "https://github.com/tedstriker/node-red-contrib-magic-home/issues"
+    "url": "https://github.com/tedstriker/node-red-contrib-magichome-controller/issues"
   },
-  "homepage": "https://github.com/tedstriker/node-red-contrib-magic-home#readme",
+  "homepage": "https://github.com/tedstriker/node-red-contrib-magichome-controller#readme",
   "readmeFilename": "README.md"
 }
