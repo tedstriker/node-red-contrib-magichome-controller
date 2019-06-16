@@ -45,7 +45,7 @@ contains of three propoerties red, green and blue. Each can hold a value between
 Omitting properties is possible.
 
 ```JavaScript 
-{ "red":0..255, "green": 0..255, "blue":0..255 }
+{ "red": 0..255, "green": 0..255, "blue": 0..255 }
 ```
 
 ## Output status
