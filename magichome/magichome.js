@@ -1,5 +1,5 @@
-var MagicHomeControl = require('magic-home').Control;
-var events = require('events');
+const MagicHomeControl = require('magic-home').Control;
+const events = require('events');
 
 module.exports = function (RED) {
     function MagicHomeControlNode(config) {
@@ -17,13 +17,11 @@ module.exports = function (RED) {
                 this._green = 0;
                 this._blue = 0;
                 this._white = 0;
-
                 this._brightness = 0;
             }
 
             static normalizeRange(min, max, value, previousValue) {
                 let normalizedValue;
-                // given range has to be integers, value has to be finite
 
                 if (!(Number.isInteger(min) && Number.isInteger(max) && isFinite(value))) {
                     return previousValue;
@@ -35,26 +33,20 @@ module.exports = function (RED) {
             }
 
             set power(state) {
-                // sanitize
-                if (state == true || state == this.C_ON) {
+                if (state || state == this.C_ON) {
                     this._power = this.C_ON;
-                    this.emit('change', 'power');
-                } else if (state == false || state == this.C_OFF) {
+                } else if (!state || state == this.C_OFF) {
                     this._power = this.C_OFF;
-                    this.emit('change', 'power');
                 }
+                this.emit('change', 'power');
             }
             get power() {
                 return this._power;
             }
 
             set red(value) {
-                try {
-                    this._red = this.constructor.normalizeRange(0, 255, value, this._red);
-                    this.emit('change', 'red');
-                } catch (error) {
-                    node.error(error);
-                }
+                this._red = this.constructor.normalizeRange(0, 255, value, this._red);
+                this.emit('change', 'red');
             }
             get red() {
                 return this._red;
@@ -85,7 +77,7 @@ module.exports = function (RED) {
             }
 
             set color(objColor) {
-
+                
             }
 
             get color() {
@@ -102,6 +94,7 @@ module.exports = function (RED) {
                 this.green = g;
                 this.blue = b;
             }
+
             getColorAsArray() {
                 return [
                     this.red,
@@ -113,27 +106,16 @@ module.exports = function (RED) {
             set brightness(value) {
                 this.constructor.normalizeRange(0, 255, value, this._brightness);
                 this.emit('change', 'brightness');
-
-                // let lights = ['red', 'green', 'blue', 'white'];
-
-                // let currentBrightness = Math.max(lights.map(x => this[x]));
-                // let newBrightness = this.constructor.normalizeRange(0, 255, value, currentBrightness);
-                // let deltaBrightness = currentBrightness - newBrightness;
-
-                // for (let color of lights){
-                //     this[color] = this[color] - deltaBrightness;
-                // }
-
             }
+
             get brightness() {
                 return Math.max(this.red, this.green, this.blue, this.white);
             }
 
             set status(objLampState) {
-
-                if (objLampState.power == true || objLampState.power == this.C_ON) {
+                if (objLampState.power || objLampState.power == this.C_ON) {
                     this._power = this.C_ON;
-                } else if (objLampState.power == false || objLampState.power == this.C_OFF) {
+                } else if (!objLampState.power || objLampState.power == this.C_OFF) {
                     this._power = this.C_OFF;
                 }
 
@@ -160,25 +142,21 @@ module.exports = function (RED) {
 
             compare(objLampState) {
                 let compareFields = ['power', 'red', 'green', 'blue', 'white'];
-                let isEqual = true;
 
                 if (!(objLampState instanceof LampState)) {
-                    return true;
+                    return false;
                 }
 
                 for (let args of compareFields) {
                     if (this[args] !== objLampState[args]) {
-                        isEqual = false;
-                        break;
+                        return false;
                     }
                 }
 
-                return isEqual;
-
+                return true;
             }
         }
 
-        // read config node
         let host;
         let lampName;
 
@@ -190,17 +168,16 @@ module.exports = function (RED) {
         }
 
         let internalState = new LampState();
-
         let node = this;
         let light = new MagicHomeControl(host);
 
         function setState(value) {
 
-            if (value === internalState.C_ON || value === true) {
+            if (value || value === internalState.C_ON) {
                 light.turnOn(function () {
                     queryLampState();
                 });
-            } else if (value === internalState.C_OFF || value === false) {
+            } else if (!value || value === internalState.C_OFF) {
                 light.turnOff(function () {
                     queryLampState();
                 });
@@ -268,7 +245,7 @@ module.exports = function (RED) {
         }
 
         function sendStateMsg() {
-            var msg = {payload:internalState.status};
+            const msg = { payload: internalState.status };
 
             node.send(msg);
         }
