@@ -33,9 +33,9 @@ module.exports = function (RED) {
             }
 
             set power(state) {
-                if (state || state == this.C_ON) {
+                if (state === true || state === this.C_ON) {
                     this._power = this.C_ON;
-                } else if (!state || state == this.C_OFF) {
+                } else if (state === false || state === this.C_OFF) {
                     this._power = this.C_OFF;
                 }
                 this.emit('change', 'power');
@@ -113,9 +113,9 @@ module.exports = function (RED) {
             }
 
             set status(objLampState) {
-                if (objLampState.power || objLampState.power == this.C_ON) {
+                if (objLampState.power === true || objLampState.power == this.C_ON) {
                     this._power = this.C_ON;
-                } else if (!objLampState.power || objLampState.power == this.C_OFF) {
+                } else if (objLampState.power === false || objLampState.power == this.C_OFF) {
                     this._power = this.C_OFF;
                 }
 
@@ -173,11 +173,11 @@ module.exports = function (RED) {
 
         function setState(value) {
 
-            if (value || value === internalState.C_ON) {
+            if (value === internalState.C_ON || value === true) {
                 light.turnOn(function () {
                     queryLampState();
                 });
-            } else if (!value || value === internalState.C_OFF) {
+            } else if (value === internalState.C_OFF || value === false) {
                 light.turnOff(function () {
                     queryLampState();
                 });
