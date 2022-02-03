@@ -4,6 +4,9 @@
 ![Libraries.io for GitHub](https://img.shields.io/librariesio/github/tedstriker/node-red-contrib-magichome-controller.svg)
 ![npm](https://img.shields.io/npm/v/node-red-contrib-magichome-controller.svg)
 
+# Attention
+please do not use this repository, as no updates are planned. I don't have had and will not have the time to take care of it in foreseeable future.
+
 # Description
 Use this node contribution to control your [Magic Home LED Controller](https://www.aliexpress.com/item/LED-Strip-light-WiFi-Bluetooth-RGB-RGBW-Controller-DC-5V-12V-24V-Android-IOS-APP-Amazon/32883892255.html) with NodeRED.
 
